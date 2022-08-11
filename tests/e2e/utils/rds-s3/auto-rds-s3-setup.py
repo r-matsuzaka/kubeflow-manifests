@@ -227,18 +227,7 @@ def get_cluster_private_subnet_ids(eks_client, ec2_client):
         "resourcesVpcConfig"
     ]["subnetIds"]
 
-    # TODO handle pagination
-    subnets = ec2_client.describe_subnets(SubnetIds=subnet_ids)["Subnets"]
-    private_subnets = []
-    for subnet in subnets:
-        for tags in subnet["Tags"]:
-            # eksctl generated clusters
-            if "SubnetPrivate" in tags["Value"]:
-                private_subnets.append(subnet)
-            # cdk generated clusters
-            if "aws-cdk:subnet-type" in tags["Key"]:
-                if "Private" in tags["Value"]:
-                    private_subnets.append(subnet)
+    private_subnets = ec2_client.describe_subnets(SubnetIds=subnet_ids)["Subnets"]
 
     def get_subnet_id(subnet):
         return subnet["SubnetId"]
