@@ -510,7 +510,7 @@ parser.add_argument(
     help=f"Name of the metadata database. Default is set to {DB_NAME_DEFAULT}",
     required=False,
 )
-DB_INSTANCE_TYPE_DEFAULT = "db.m5.large"
+DB_INSTANCE_TYPE_DEFAULT = "db.t4g.micro"
 parser.add_argument(
     "--db_instance_type",
     type=str,
